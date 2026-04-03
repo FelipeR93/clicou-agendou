@@ -22,10 +22,14 @@ export async function loginAction(
   try {
     await signIn("credentials", { email, password, redirectTo: callbackUrl });
   } catch (error) {
+    // Re-throw Next.js redirect errors so the browser navigates correctly
+    if ((error as { digest?: string })?.digest?.startsWith("NEXT_REDIRECT")) {
+      throw error;
+    }
     if (error instanceof AuthError) {
       return { error: "Email ou senha inválidos" };
     }
-    throw error;
+    return { error: "Erro ao fazer login. Tente novamente." };
   }
 
   return {};
