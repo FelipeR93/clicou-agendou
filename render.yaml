@@ -9,10 +9,12 @@ services:
         fromDatabase:
           name: clicou-agendou-db
           property: connectionString
-      - key: NEXTAUTH_SECRET
+      - key: AUTH_SECRET
         generateValue: true
-      - key: NEXTAUTH_URL
-        value: https://clicou-agendou.onrender.com
+      - key: AUTH_URL
+        value: https://clicou-agendou.onrender.com/api/auth
+      - key: AUTH_TRUST_HOST
+        value: "true"
       - key: NODE_ENV
         value: production
 
