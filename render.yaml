@@ -2,7 +2,7 @@ services:
   - type: web
     name: clicou-agendou
     env: node
-    buildCommand: npm install && npm run build && npx prisma db push
+    buildCommand: npm install && npm run build && npx prisma db push && npx prisma db seed
     startCommand: npm start
     envVars:
       - key: DATABASE_URL
