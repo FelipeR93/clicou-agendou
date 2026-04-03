@@ -9,7 +9,8 @@ import type { Role } from "@/generated/prisma/client";
  * Used by proxy.ts for JWT verification at the edge.
  */
 export const authConfig = {
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   session: { strategy: "jwt" as const },
   pages: { signIn: "/login" },
   providers: [],
