@@ -12,7 +12,7 @@ services:
       - key: AUTH_SECRET
         generateValue: true
       - key: AUTH_URL
-        value: https://clicou-agendou.onrender.com/api/auth
+        value: https://clicou-agendou.onrender.com
       - key: AUTH_TRUST_HOST
         value: "true"
       - key: NODE_ENV
