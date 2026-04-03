@@ -22,7 +22,7 @@ export default function LoginPage() {
             <span className="text-white text-2xl font-bold">CA</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Clicou Agendou</h1>
-          <p className="text-gray-500 mt-2">Sistema de Agendamento — Clínica TEA</p>
+          <p className="text-gray-500 mt-2">Sistema de Agendamento</p>
         </div>
 
         <Card>
