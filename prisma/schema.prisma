@@ -1,0 +1,162 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  PROFESSIONAL
+  RESPONSIBLE
+}
+
+enum Specialty {
+  AT
+  TO
+  FONO
+  PSICO
+  FISIO
+  OTHER
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  password     String
+  name         String
+  role         Role
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  professional Professional?
+  responsible  Responsible?
+}
+
+model Professional {
+  id             String          @id @default(cuid())
+  userId         String          @unique
+  specialty      Specialty
+  phone          String?
+  bio            String?
+  active         Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  user           User            @relation(fields: [userId], references: [id])
+  availabilities Availability[]
+  appointments   Appointment[]
+  attendanceLogs AttendanceLog[]
+}
+
+model Responsible {
+  id         String     @id @default(cuid())
+  userId     String     @unique
+  phone      String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  user       User       @relation(fields: [userId], references: [id])
+  aprendizes Aprendiz[]
+}
+
+model Aprendiz {
+  id            String         @id @default(cuid())
+  name          String
+  dateOfBirth   DateTime?
+  diagnosis     String?
+  notes         String?
+  active        Boolean        @default(true)
+  responsibleId String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  responsible   Responsible?   @relation(fields: [responsibleId], references: [id])
+  needs         AprendizNeed[]
+  appointments  Appointment[]
+}
+
+model Room {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  capacity     Int           @default(1)
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+}
+
+model Availability {
+  id             String       @id @default(cuid())
+  professionalId String
+  dayOfWeek      DayOfWeek
+  startTime      String
+  endTime        String
+  createdAt      DateTime     @default(now())
+  professional   Professional @relation(fields: [professionalId], references: [id])
+
+  @@unique([professionalId, dayOfWeek, startTime])
+}
+
+model AprendizNeed {
+  id              String    @id @default(cuid())
+  aprendizId      String
+  specialty       Specialty
+  sessionsPerWeek Int       @default(1)
+  notes           String?
+  active          Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  aprendiz        Aprendiz  @relation(fields: [aprendizId], references: [id])
+}
+
+model Appointment {
+  id             String            @id @default(cuid())
+  aprendizId     String
+  professionalId String
+  roomId         String?
+  scheduledStart DateTime
+  scheduledEnd   DateTime
+  actualStart    DateTime?
+  actualEnd      DateTime?
+  status         AppointmentStatus @default(SCHEDULED)
+  notes          String?
+  cancelReason   String?
+  createdById    String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  aprendiz       Aprendiz          @relation(fields: [aprendizId], references: [id])
+  professional   Professional      @relation(fields: [professionalId], references: [id])
+  room           Room?             @relation(fields: [roomId], references: [id])
+  attendanceLogs AttendanceLog[]
+}
+
+model AttendanceLog {
+  id             String       @id @default(cuid())
+  appointmentId  String       @unique
+  professionalId String
+  startedAt      DateTime
+  endedAt        DateTime?
+  notes          String?
+  createdAt      DateTime     @default(now())
+  appointment    Appointment  @relation(fields: [appointmentId], references: [id])
+  professional   Professional @relation(fields: [professionalId], references: [id])
+}
