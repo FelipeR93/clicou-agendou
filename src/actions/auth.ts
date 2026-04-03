@@ -2,7 +2,6 @@
 
 import { signIn } from "@/lib/auth";
 import { AuthError } from "next-auth";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export type LoginState = {
   error?: string;
@@ -23,7 +22,8 @@ export async function loginAction(
   try {
     await signIn("credentials", { email, password, redirectTo: callbackUrl });
   } catch (error) {
-    if (isRedirectError(error)) {
+    // Re-throw Next.js redirect errors so the browser navigates correctly
+    if ((error as { digest?: string })?.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
     if (error instanceof AuthError) {
