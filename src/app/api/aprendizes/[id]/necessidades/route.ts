@@ -56,7 +56,8 @@ export async function POST(
     });
 
     return NextResponse.json(need, { status: 201 });
-  } catch {
+  } catch (err) {
+    console.error("Erro ao criar necessidade:", err);
     return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }

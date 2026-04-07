@@ -15,7 +15,8 @@ export async function DELETE(
     const { needId } = await params;
     await prisma.aprendizNeed.update({ where: { id: needId }, data: { active: false } });
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.error("Erro ao desativar necessidade:", err);
     return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }
