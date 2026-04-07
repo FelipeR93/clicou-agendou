@@ -18,11 +18,14 @@ export function Header() {
     .toUpperCase() ?? "?";
 
   return (
-    <header className="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-6">
-      <div />
+    <header className="h-16 border-b border-blue-100 bg-white flex items-center justify-between px-6 shadow-sm">
+      <div className="flex items-center gap-2">
+        <div className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
+        <span className="text-sm text-blue-600 font-medium hidden md:block">Sistema de Agendamento</span>
+      </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 text-sm font-semibold">
+          <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 text-sm font-semibold border border-blue-200">
             {initials}
           </div>
           <div className="hidden sm:block">

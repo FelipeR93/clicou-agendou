@@ -31,10 +31,10 @@ export default async function AdminDashboard() {
   const { professionals, aprendizes, today, completed, recentAppointments } = await getStats();
 
   const stats = [
-    { title: "Profissionais Ativos", value: professionals, icon: Users, color: "text-teal-600", bg: "bg-teal-50" },
-    { title: "Aprendizes Ativos", value: aprendizes, icon: Baby, color: "text-blue-600", bg: "bg-blue-50" },
-    { title: "Atendimentos Hoje", value: today, icon: Calendar, color: "text-orange-600", bg: "bg-orange-50" },
-    { title: "Concluídos (Total)", value: completed, icon: CheckCircle, color: "text-green-600", bg: "bg-green-50" },
+    { title: "Profissionais Ativos", value: professionals, icon: Users, color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100" },
+    { title: "Aprendizes Ativos", value: aprendizes, icon: Baby, color: "text-sky-600", bg: "bg-sky-50", border: "border-sky-100" },
+    { title: "Atendimentos Hoje", value: today, icon: Calendar, color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-100" },
+    { title: "Concluídos (Total)", value: completed, icon: CheckCircle, color: "text-green-600", bg: "bg-green-50", border: "border-green-100" },
   ];
 
   return (
@@ -45,15 +45,15 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map(({ title, value, icon: Icon, color, bg }) => (
-          <Card key={title}>
+        {stats.map(({ title, value, icon: Icon, color, bg, border }) => (
+          <Card key={title} className={`border ${border} shadow-sm hover:shadow-md transition-shadow`}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-500">{title}</p>
                   <p className="text-3xl font-bold text-gray-900 mt-1">{value}</p>
                 </div>
-                <div className={`${bg} p-3 rounded-full`}>
+                <div className={`${bg} p-3 rounded-xl border ${border}`}>
                   <Icon className={`h-6 w-6 ${color}`} />
                 </div>
               </div>

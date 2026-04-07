@@ -79,17 +79,17 @@ export default function SalasPage() {
           <h1 className="text-2xl font-bold text-gray-900">Salas de Atendimento</h1>
           <p className="text-gray-500">Gerencie as salas da clínica</p>
         </div>
-        <Button onClick={openCreate}><Plus className="h-4 w-4 mr-2" />Nova Sala</Button>
+        <Button onClick={openCreate} className="bg-blue-600 hover:bg-blue-700"><Plus className="h-4 w-4 mr-2" />Nova Sala</Button>
       </div>
 
-      <Card>
+      <Card className="border-blue-100 shadow-sm">
         <CardContent className="p-0">
           {loading ? (
             <p className="p-6 text-gray-500">Carregando...</p>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="bg-blue-50/60">
                   <TableHead>Nome</TableHead>
                   <TableHead>Descrição</TableHead>
                   <TableHead>Capacidade</TableHead>
@@ -142,7 +142,7 @@ export default function SalasPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSave} disabled={saving}>{saving ? "Salvando..." : "Salvar"}</Button>
+            <Button onClick={handleSave} disabled={saving} className="bg-blue-600 hover:bg-blue-700">{saving ? "Salvando..." : "Salvar"}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

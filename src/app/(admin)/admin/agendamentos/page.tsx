@@ -112,7 +112,7 @@ export default function AgendamentosPage() {
           <h1 className="text-2xl font-bold text-gray-900">Agendamentos</h1>
           <p className="text-gray-500">Gerencie todos os agendamentos</p>
         </div>
-        <Button onClick={() => { setForm({ aprendizId: "", professionalId: "", roomId: "", scheduledStart: "", scheduledEnd: "", notes: "" }); setOpen(true); }}>
+        <Button onClick={() => { setForm({ aprendizId: "", professionalId: "", roomId: "", scheduledStart: "", scheduledEnd: "", notes: "" }); setOpen(true); }} className="bg-blue-600 hover:bg-blue-700">
           <Plus className="h-4 w-4 mr-2" />Novo Agendamento
         </Button>
       </div>
@@ -125,12 +125,12 @@ export default function AgendamentosPage() {
         {filterDate && <Button variant="outline" onClick={() => setFilterDate("")}>Limpar filtro</Button>}
       </div>
 
-      <Card>
+      <Card className="border-blue-100 shadow-sm">
         <CardContent className="p-0">
           {loading ? <p className="p-6 text-gray-500">Carregando...</p> : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-blue-50">
               {appointments.map((apt) => (
-                <div key={apt.id} className="p-4 flex items-start justify-between hover:bg-gray-50">
+                <div key={apt.id} className="p-4 flex items-start justify-between hover:bg-blue-50/40 transition-colors">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">{apt.aprendiz.name}</span>
@@ -201,7 +201,7 @@ export default function AgendamentosPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button onClick={handleCreate} disabled={saving}>{saving ? "Criando..." : "Criar Agendamento"}</Button>
+            <Button onClick={handleCreate} disabled={saving} className="bg-blue-600 hover:bg-blue-700">{saving ? "Criando..." : "Criar Agendamento"}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

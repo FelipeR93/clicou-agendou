@@ -15,19 +15,19 @@ export default function LoginPage() {
   const [state, formAction, pending] = useActionState(loginAction, {});
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-sky-50 to-blue-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-600 rounded-full mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-200">
             <span className="text-white text-2xl font-bold">CA</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Clicou Agendou</h1>
-          <p className="text-gray-500 mt-2">Sistema de Agendamento</p>
+          <p className="text-blue-500 mt-2 font-medium">Sistema de Agendamento Clínico</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Entrar</CardTitle>
+        <Card className="border-blue-100 shadow-xl shadow-blue-100">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-blue-900">Entrar</CardTitle>
             <CardDescription>Acesse sua conta para continuar</CardDescription>
           </CardHeader>
           <CardContent>
@@ -42,6 +42,7 @@ export default function LoginPage() {
                   placeholder="seu@email.com"
                   required
                   autoComplete="email"
+                  className="border-blue-200 focus:border-blue-400"
                 />
               </div>
               <div className="space-y-2">
@@ -53,6 +54,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   required
                   autoComplete="current-password"
+                  className="border-blue-200 focus:border-blue-400"
                 />
               </div>
               {state?.error && (
@@ -60,7 +62,7 @@ export default function LoginPage() {
                   {state.error}
                 </div>
               )}
-              <Button type="submit" className="w-full" disabled={pending}>
+              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-sm" disabled={pending}>
                 {pending ? "Entrando..." : "Entrar"}
               </Button>
             </form>
